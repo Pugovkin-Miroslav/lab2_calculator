@@ -46,7 +46,7 @@ bool is_number(const std::string& s) {
 double evaluate_rpn(const std::string& expression) {
     std::stack<double> stack;
     std::vector<std::string> tokens = tokenize(expression);
-
+    int temp_a = 0, temp_b = 0;
     for (const auto& token : tokens) {
         if (is_number(token)) {
             // Преобразуем строку в число и помещаем в стек
@@ -67,6 +67,14 @@ double evaluate_rpn(const std::string& expression) {
                 result = a - b;
             } else if (token == "*") {
                 result = a * b;
+            } else if (token == "%"){
+                temp_b = b;
+                temp_a = a;
+                if ((temp_a == a) && (temp_b == b)){
+                    result = temp_a % temp_b;
+                }else{
+                    throw std::invalid_argument("Your numbers must be integers");
+                }
             } else if (token == "/") {
                 if (b == 0.0) {
                     throw std::invalid_argument("Division by zero");

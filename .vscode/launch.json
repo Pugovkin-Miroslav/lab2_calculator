@@ -19,7 +19,7 @@
                 "ignoreFailures": true
             }
         ],
-        "preLaunch Task": "build" // Нужно создать task 6 tasks.json
+       "preLaunch Task": "build" // Нужно создать task 6 tasks.json
     }
 
     ]
