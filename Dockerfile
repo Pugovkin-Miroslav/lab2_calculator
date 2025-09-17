@@ -1,11 +1,21 @@
 FROM ubuntu:22.04 AS builder
-RUN apt-get update && \
-    apt-get install -y cmake g++ && \
-    rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt-get clean && \
+    apt-get update --fix-missing && \
+    apt-get install -y \
+    cmake \
+    g++ \
+    make \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY . .
-RUN cmake B build-DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build-target rpn_calculator --parallel 2
+
+RUN mkdir -p build && \
+    cd build && \
+    cmake .. && \
+    make
 
 FROM ubuntu:22.04
 WORKDIR /app
